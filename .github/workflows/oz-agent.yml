@@ -1,0 +1,35 @@
+name: Oz Agent
+
+on:
+  workflow_dispatch:
+    inputs:
+      prompt:
+        description: Task for the Oz agent
+        required: true
+        type: string
+      share:
+        description: Share session link (true/false)
+        required: false
+        default: "false"
+        type: string
+
+jobs:
+  agent:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+    steps:
+      - uses: actions/checkout@v6
+      - name: Run Oz agent
+        id: agent
+        uses: warpdotdev/oz-agent-action@v1
+        with:
+          prompt: ${{ inputs.prompt }}
+          warp_api_key: ${{ secrets.WARP_API_KEY }}
+          share: ${{ inputs.share }}
+      - name: Show agent output
+        if: ${{ steps.agent.outputs.agent_output }}
+        run: |
+          echo "${{ steps.agent.outputs.agent_output }}"
