@@ -1,0 +1,7 @@
+{
+  "database": "dolt",
+  "backend": "dolt",
+  "dolt_mode": "server",
+  "dolt_database": "swift_ehr",
+  "project_id": "35d05464-7b6b-495c-b48a-a87a7c2bfc35"
+}
